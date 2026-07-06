@@ -60,7 +60,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <header className={`${styles.header} animate-pop-in`}>
-        <h1 className={styles.title}>지식샘터 웹앱 모음</h1>
+        <h1 className={styles.title}>바이브 웹앱 모음</h1>
         <p className={styles.subtitle}>선생님들의 학급 운영과 수업을 도와줄 유용한 앱들을 만나보세요 💕</p>
       </header>
 
