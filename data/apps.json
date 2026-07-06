@@ -1,0 +1,63 @@
+[
+  {
+    "id": "app-001",
+    "title": "단어 암기 트레이너",
+    "category": "학급운영",
+    "url": "https://example.com",
+    "thumbnailUrl": "",
+    "description": "#단어시험 #반복학습 반복 학습 기반 단어 암기 앱 샘플입니다.",
+    "isActive": true
+  },
+  {
+    "id": "app-002",
+    "title": "학생 랜덤 뽑기",
+    "category": "학급운영",
+    "url": "https://example.com/random",
+    "thumbnailUrl": "",
+    "description": "#뽑기 #발표자 공정하고 재미있게 발표자를 뽑아보세요!",
+    "isActive": true
+  },
+  {
+    "id": "app-003",
+    "title": "자리 바꾸기 프로그램",
+    "category": "학급운영",
+    "url": "https://example.com/seat",
+    "thumbnailUrl": "",
+    "description": "#자리배치 #짝꿍 학생들의 자리를 뚝딱! 무작위로 배치합니다.",
+    "isActive": true
+  },
+  {
+    "id": "app-004",
+    "title": "수업용 타이머",
+    "category": "수업",
+    "url": "https://example.com/timer",
+    "thumbnailUrl": "",
+    "description": "#타이머 #집중력 예쁘고 깔끔한 수업용 타이머로 집중력을 높여요.",
+    "isActive": true
+  },
+  {
+    "id": "app-005",
+    "title": "성적 처리 자동화",
+    "category": "업무",
+    "url": "https://example.com/grade",
+    "thumbnailUrl": "",
+    "description": "#업무경감 #성적 복잡한 성적 처리를 간편하게! 선생님의 퇴근을 앞당겨요.",
+    "isActive": true
+  },
+  {
+    "id": "app-1783336342424",
+    "title": "11",
+    "category": "학급운영",
+    "url": "https://seating-chart-ajg298m4s-jinbong-s-projects.vercel.app/",
+    "description": "#자리배치#",
+    "isActive": true
+  },
+  {
+    "id": "app-1783336357605",
+    "title": "11",
+    "category": "학급운영",
+    "url": "https://seating-chart-ajg298m4s-jinbong-s-projects.vercel.app/",
+    "description": "22",
+    "isActive": true
+  }
+]
