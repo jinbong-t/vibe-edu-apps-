@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const appsRef = collection(db, 'vibe_apps');
     const snapshot = await getDocs(appsRef);
-    const apps = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const apps = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
     
     // createdAt 기준 정렬 (최신순)
     apps.sort((a: any, b: any) => {
