@@ -91,16 +91,24 @@ export default function AdminPage() {
     try {
       let res;
       if (isEditing) {
-        res = await fetch(`/api/apps/${formData.id}`, {
+        // id는 URL에만 사용하고 body에서는 제거
+        const { id, ...dataWithoutId } = formData;
+        if (!id) {
+          setMessage('❌ 수정할 앱 ID가 없습니다. 다시 선택해 주세요.');
+          setIsSubmitting(false);
+          return;
+        }
+        res = await fetch(`/api/apps/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(dataWithoutId)
         });
       } else {
+        const { id, ...dataWithoutId } = formData;
         res = await fetch('/api/apps', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(dataWithoutId)
         });
       }
 

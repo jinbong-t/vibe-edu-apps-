@@ -5,8 +5,10 @@ import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    const updatedData = await request.json();
+    const rawData = await request.json();
     
+    // body에 id가 포함되어 있으면 제거 (Firestore 충돌 방지)
+    const { id: _removeId, ...updatedData } = rawData;
     updatedData.updatedAt = new Date().toISOString();
     
     const docRef = doc(db, 'vibe_apps', id);
