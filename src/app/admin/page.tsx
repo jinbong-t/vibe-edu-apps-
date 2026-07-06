@@ -51,12 +51,14 @@ export default function AdminPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (password !== '1234') {
+    const inputPwd = prompt('정말 삭제하시겠습니까?\n삭제하려면 관리자 비밀번호를 입력해 주세요.', '');
+    
+    if (inputPwd === null) return; // 취소 누름
+    if (inputPwd !== '1234') {
       setMessage('❌ 비밀번호가 틀렸습니다!');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    if (!confirm('정말 삭제하시겠습니까?')) return;
 
     try {
       const res = await fetch(`/api/apps/${id}`, {
