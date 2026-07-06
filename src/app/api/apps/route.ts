@@ -1,34 +1,41 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-
-const dataFilePath = path.join(process.cwd(), 'data', 'apps.json');
+import { db } from '@/lib/firebase';
+import { collection, getDocs, addDoc, query, orderBy } from 'firebase/firestore';
 
 export async function GET() {
   try {
-    const fileContents = fs.readFileSync(dataFilePath, 'utf8');
-    const apps = JSON.parse(fileContents);
+    const appsRef = collection(db, 'vibe_apps');
+    const snapshot = await getDocs(appsRef);
+    const apps = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+    // createdAt 기준 정렬 (최신순)
+    apps.sort((a: any, b: any) => {
+      if (!a.createdAt) return 1;
+      if (!b.createdAt) return -1;
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+    
     return NextResponse.json(apps);
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to read data' }, { status: 500 });
+  } catch (error: any) {
+    console.error('Firebase DB Error:', error);
+    return NextResponse.json({ error: 'Failed to read data from Firebase', details: error.message }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
   try {
     const newApp = await request.json();
-    const fileContents = fs.readFileSync(dataFilePath, 'utf8');
-    const apps = JSON.parse(fileContents);
     
-    // 간단한 ID 생성 (실제로는 uuid 등을 사용하는 것이 좋습니다)
-    newApp.id = `app-${Date.now()}`;
+    newApp.createdAt = new Date().toISOString();
+    newApp.updatedAt = new Date().toISOString();
     newApp.isActive = true;
     
-    apps.push(newApp);
-    fs.writeFileSync(dataFilePath, JSON.stringify(apps, null, 2), 'utf8');
+    const appsRef = collection(db, 'vibe_apps');
+    const docRef = await addDoc(appsRef, newApp);
     
-    return NextResponse.json({ success: true, app: newApp });
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to write data' }, { status: 500 });
+    return NextResponse.json({ ...newApp, id: docRef.id }, { status: 201 });
+  } catch (error: any) {
+    console.error('Firebase DB Error:', error);
+    return NextResponse.json({ error: 'Failed to save data to Firebase', details: error.message }, { status: 500 });
   }
 }
