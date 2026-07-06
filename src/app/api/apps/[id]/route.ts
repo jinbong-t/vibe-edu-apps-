@@ -41,7 +41,8 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     fs.writeFileSync(dataFilePath, JSON.stringify(apps, null, 2), 'utf8');
     
     return NextResponse.json({ success: true });
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to delete data' }, { status: 500 });
+  } catch (error: any) {
+    console.error("DELETE Error:", error);
+    return NextResponse.json({ error: 'Failed to delete data', details: error.message }, { status: 500 });
   }
 }

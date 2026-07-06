@@ -64,14 +64,15 @@ export default function AdminPage() {
       const res = await fetch(`/api/apps/${id}`, {
         method: 'DELETE'
       });
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
         setMessage('✅ 삭제되었습니다!');
         loadApps();
       } else {
-        setMessage('❌ 삭제에 실패했습니다.');
+        setMessage(`❌ 삭제에 실패했습니다: ${data.details || data.error || res.statusText}`);
       }
-    } catch (err) {
-      setMessage('❌ 오류가 발생했습니다.');
+    } catch (err: any) {
+      setMessage(`❌ 오류가 발생했습니다: ${err.message}`);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
