@@ -104,16 +104,18 @@ export default function AdminPage() {
         });
       }
 
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
         setMessage(isEditing ? '✅ 성공적으로 수정되었습니다!' : '✅ 성공적으로 등록되었습니다!');
         setFormData({ id: '', title: '', category: '학급운영', url: '', description: '' });
         setIsEditing(false);
         loadApps();
       } else {
-        setMessage('❌ 저장에 실패했습니다.');
+        const errDetail = data.details || data.error || res.statusText || '알 수 없는 오류';
+        setMessage(`❌ 저장에 실패했습니다. (${res.status}) → ${errDetail}`);
       }
-    } catch (err) {
-      setMessage('❌ 오류가 발생했습니다.');
+    } catch (err: any) {
+      setMessage(`❌ 네트워크 오류: ${err.message}`);
     } finally {
       setIsSubmitting(false);
     }
