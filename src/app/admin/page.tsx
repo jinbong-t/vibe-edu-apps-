@@ -261,9 +261,14 @@ export default function AdminPage() {
         </form>
       </div>
 
-      <h2 className="cute-font" style={{ marginBottom: '1rem', fontSize: '1.5rem', textAlign: 'center' }}>
-        등록된 앱 목록 ({apps.length}개)
-      </h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <h2 className="cute-font" style={{ fontSize: '1.5rem', margin: 0 }}>
+          등록된 앱 목록 ({apps.length}개)
+        </h2>
+        <a href="/" style={{ padding: '0.4rem 1rem', background: 'white', color: '#ff758c', textDecoration: 'none', borderRadius: '20px', fontWeight: 'bold', border: '2px solid #ff758c', fontSize: '0.9rem' }}>
+          🏠 메인으로
+        </a>
+      </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {apps.map(app => (
           <div key={app.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', background: 'rgba(255,255,255,0.7)', borderRadius: '12px' }}>
@@ -278,10 +283,6 @@ export default function AdminPage() {
           </div>
         ))}
         {apps.length === 0 && <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>등록된 앱이 없습니다.</div>}
-      </div>
-      
-      <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-        <a href="/" style={{ color: 'var(--text-secondary)', textDecoration: 'underline' }}>메인 화면으로 돌아가기</a>
       </div>
     </div>
   );
