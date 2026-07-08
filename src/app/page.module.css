@@ -106,6 +106,46 @@
   border: 2px solid #ffdde1;
 }
 
+.iframeWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.previewIframe {
+  width: 400%;
+  height: 400%;
+  transform: scale(0.25);
+  transform-origin: 0 0;
+  border: none;
+  pointer-events: none;
+  background: white;
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.iframeOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  cursor: default;
+  /* 살짝 그라데이션을 줘서 텍스트나 카드가 자연스럽게 보이게 함 */
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1) 100%);
+}
+
 .cardTitle {
   font-size: 1.6rem;
   margin-bottom: 0.8rem;

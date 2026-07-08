@@ -39,20 +39,27 @@ export default function Home() {
     return app.category === activeCategory;
   });
 
-  // 해시태그를 예쁘게 렌더링하기 위한 함수
+  // 해시태그를 예쁘게 렌더링하기 위한 함수 (해시태그 띄어쓰기 지원)
   const renderDescription = (desc: string) => {
-    const words = desc.split(' ');
-    const hashtags = words.filter(word => word.startsWith('#'));
-    const normalText = words.filter(word => !word.startsWith('#')).join(' ');
+    // '#'을 기준으로 문자열을 나눕니다.
+    const parts = desc.split('#');
+    
+    // 첫 번째 부분은 일반 설명글입니다.
+    const normalText = parts[0].trim();
+    
+    // 두 번째 부분부터는 해시태그입니다. (각각 앞에 '#'을 다시 붙여줍니다)
+    const hashtags = parts.slice(1).map(tag => '#' + tag.trim()).filter(tag => tag !== '#');
 
     return (
       <>
-        <p className={styles.cardDesc}>{normalText}</p>
-        <div className={styles.hashtagContainer}>
-          {hashtags.map((tag, index) => (
-            <span key={index} className={styles.hashtag}>{tag}</span>
-          ))}
-        </div>
+        {normalText && <p className={styles.cardDesc}>{normalText}</p>}
+        {hashtags.length > 0 && (
+          <div className={styles.hashtagContainer}>
+            {hashtags.map((tag, index) => (
+              <span key={index} className={styles.hashtag}>{tag}</span>
+            ))}
+          </div>
+        )}
       </>
     );
   };
@@ -85,6 +92,17 @@ export default function Home() {
               <div className={styles.cardHeader}>
                 <span className={styles.cardCategory}>{app.category}</span>
               </div>
+              
+              <div className={styles.iframeWrapper}>
+                {app.thumbnailUrl ? (
+                  <img src={app.thumbnailUrl} alt={app.title} className={styles.previewImage} />
+                ) : (
+                  <iframe src={app.url} className={styles.previewIframe} title={`${app.title} preview`} scrolling="no" tabIndex={-1} />
+                )}
+                {/* 오버레이를 추가하여 아이프레임 내 클릭을 방지합니다 */}
+                <div className={styles.iframeOverlay}></div>
+              </div>
+
               <h2 className={`${styles.cardTitle} cute-font`}>{app.title}</h2>
               {renderDescription(app.description)}
               <div className={styles.cardAction}>
